@@ -8,18 +8,21 @@ import org.springframework.stereotype.Controller;
         import org.springframework.web.bind.annotation.ModelAttribute;
         import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
 public class RegistrationsController {
+    private final AtomicLong counter = new AtomicLong();
 
     @GetMapping("/registration")
-    public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
+    public String registrationForm(Model model) {
+        model.addAttribute("registrations", new Registrations());
         return "greeting";
     }
 
     @PostMapping("/registration")
-    public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
-        model.addAttribute("greeting", greeting);
+    public String registrationSubmit(@ModelAttribute Registrations registrations, Model model) {
+        model.addAttribute("id", registrations.getId());
+        model.addAttribute("registrations", registrations);
         return "result";
     }
 

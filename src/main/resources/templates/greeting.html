@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Регистрация</h1>
-<form action="#" th:action="@{/registration}" th:object="${greeting}" method="post">
-    <p>Имя: <input type="text" th:field="*{name}" /></p>
+<h1>Hello</h1>
+<form action="#" th:action="@{/registration}" th:object="${registrations}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Email: <input type="text" th:field="*{email}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

@@ -2,7 +2,9 @@ package com.neoflex.demo;
 
 public class Registrations {
     private long id;
-    private String content;
+    private String name;
+    private String email;
+
 
     public long getId() {
         return id;
@@ -12,12 +14,20 @@ public class Registrations {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
