@@ -21,8 +21,9 @@ public class RegistrationsController {
 
     @PostMapping("/registration")
     public String registrationSubmit(@ModelAttribute Registrations registrations, Model model) {
-        model.addAttribute("id", registrations.getId());
+ //       model.addAttribute("id", registrations.getId());
         model.addAttribute("registrations", registrations);
+        registrations.setId(counter.incrementAndGet());
         return "result";
     }
 
