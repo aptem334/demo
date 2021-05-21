@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lesson1.yaml
+  - changeSet:
+      id: 1
+      author: aptem334@gmail.com
+      comment: "Start"CREATE TABLE CLIENTS (
+    ID NUMBER(19),
+    TYPES VARCHAR2(255) NOT NULL,
+  FULL_NAME VARCHAR2(255) NOT NULL,
+  ADDRESS VARCHAR2(255) NOT NULL,
+  PHONE VARCHAR2(12) UNIQUE,
+  EMAIL VARCHAR2(255) UNIQUE,
+  BIRTHDAY DATE,
+  PRIMARY KEY (ID)
+  );
+changes:
+  - createTable:
+      tableName: users
+      columns:
+        - column:
+            name: id
+            type: BIGINT
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: name
+            type: varchar(50)
+            constraints:
+              nullable: false
+        - column:
+            name: email
+            type: varchar(50)
+            constraints:
+              unique: false
+- changeSet:
+    id: 2
+    author: aptem334@gmail.com
+    comment: "Create admin user"
+    changes:
+      - insert:
+          tableName: users
+          columns:
+            - column:
+                name: name
+                value: "admin"
+            - column:
+                name: email
+                value: "admin@server.com"
+      - insert:
+          tableName: users
+          columns:
+            - column:
+                name: name
+                value: "guest"
+            - column:
+                name: email
+                value: "guest@server.com"
+    rollback:
+      - delete:
+          tableName: users
+          where: username in ('admin', 'guest')

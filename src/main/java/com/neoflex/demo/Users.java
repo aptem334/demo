@@ -3,15 +3,16 @@ package com.neoflex.demo;
 import javax.persistence.*;
 
 @javax.persistence.Entity
-public class Entity {
+public class Users {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQUENCE1")
     @SequenceGenerator(name="SEQUENCE1", sequenceName="ENTITY_SEQ", allocationSize=1)
     private Integer id;
 
-
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "email", unique = true)
     private String email;
 
     public Integer getId() {
@@ -22,10 +23,10 @@ public class Entity {
         this.id = id;
     }
 
-    public Entity() {
+    public Users() {
     }
 
-    public Entity(String name, String email) {
+    public Users(String name, String email) {
         this.name = name;
         this.email = email;
     }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/demo")
+@RequestMapping(path="/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -17,13 +17,13 @@ public class UserController {
     @GetMapping(path="/add")
     public @ResponseBody String addNewUser (@RequestParam String name , @RequestParam String email) {
 
-        Entity n = new Entity(name, email);
+        Users n = new Users(name, email);
         userRepository.save(n);
         return "Saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<Entity> getAllUsers() {
+    public @ResponseBody Iterable<Users> getAllUsers() {
         return userRepository.findAll();
     }
 }
