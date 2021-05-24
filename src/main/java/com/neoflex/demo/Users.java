@@ -1,6 +1,9 @@
 package com.neoflex.demo;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @javax.persistence.Entity
 public class Users {
@@ -9,10 +12,11 @@ public class Users {
     @SequenceGenerator(name="SEQUENCE1", sequenceName="ENTITY_SEQ", allocationSize=1)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Column(name = "email", unique = true)
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
 
     public Integer getId() {
@@ -26,7 +30,7 @@ public class Users {
     public Users() {
     }
 
-    public Users(String name, String email) {
+    public Users(@Valid String name, String email) {
         this.name = name;
         this.email = email;
     }

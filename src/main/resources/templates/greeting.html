@@ -6,10 +6,22 @@
 </head>
 <body>
 <h1>Hello</h1>
-<form action="#" th:action="@{/registration}" th:object="${registrations}" method="post">
-    <p>Name: <input type="text" th:field="*{name}" /></p>
-    <p>Email: <input type="text" th:field="*{email}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+<form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}" /></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Age Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>>
