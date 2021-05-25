@@ -1,11 +1,9 @@
-package com.neoflex.demo;
+package com.aptem334.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class DemoApplication {
 
 	public static void main(String[] args) throws Exception {

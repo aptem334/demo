@@ -1,4 +1,4 @@
-package com.neoflex.demo;
+package com.aptem334.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

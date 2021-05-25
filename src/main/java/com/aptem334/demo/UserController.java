@@ -1,18 +1,27 @@
-package com.neoflex.demo;
+package com.aptem334.demo;
 
-import com.neoflex.demo.repos.UserRepository;
+import com.aptem334.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(path="/user")
 public class UserController  {
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/index")
     public String showUserList(Model model) {
@@ -26,11 +35,22 @@ public class UserController  {
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid Users user, BindingResult result, Model model) {
+    public String addUser(@Valid Users user, BindingResult result, Model model, @RequestParam("file") MultipartFile file) throws IOException {
         if (result.hasErrors()) {
             return "add-user";
         }
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile =  UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
 
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+
+            user.setFilename(resultFileName);
+        }
         userRepository.save(user);
         return "redirect:/user/index";
     }
@@ -40,6 +60,7 @@ public class UserController  {
         if (result.hasErrors()) {
             return "result";
         }
+
         userRepository.save(user);
         return "redirect:/user/all";
     }
@@ -85,8 +106,13 @@ public class UserController  {
         return "redirect:/user/all";
     }
 
-    @GetMapping(path="/all")
+    @PostMapping(path="/all")
     public @ResponseBody Iterable<Users> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @PostMapping(path="/filter")
+    public @ResponseBody Iterable<Users> searchUsers(@RequestParam String email, @RequestParam String name ) {
+        return userRepository.findByEmailOrName(email, name);
     }
 }

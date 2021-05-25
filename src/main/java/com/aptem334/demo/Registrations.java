@@ -1,4 +1,4 @@
-package com.neoflex.demo;
+package com.aptem334.demo;
 
 public class Registrations {
     private long id;

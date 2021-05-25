@@ -1,4 +1,4 @@
-package com.neoflex.demo;
+package com.aptem334.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,6 +18,16 @@ public class Users {
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
     private String email;
+
+    public String filename;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public Integer getId() {
         return id;
@@ -50,4 +60,6 @@ public class Users {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }
