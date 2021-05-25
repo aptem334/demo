@@ -1,11 +1,11 @@
 package com.neoflex.demo;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@javax.persistence.Entity
+
+@Entity
 public class Users {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQUENCE1")
@@ -30,7 +30,7 @@ public class Users {
     public Users() {
     }
 
-    public Users(@Valid String name, String email) {
+    public Users(String name, String email) {
         this.name = name;
         this.email = email;
     }

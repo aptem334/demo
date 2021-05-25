@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import javax.validation.Valid;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
 @RequestMapping(path="/user")
@@ -66,13 +64,12 @@ public class UserController  {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         Users user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-        model.addAttribute("user", user);
+        model.addAttribute("users", user);
         return "update-user";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid Users user,
-                             BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id, @Valid Users user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
             return "update-user";
