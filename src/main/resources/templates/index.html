@@ -14,7 +14,10 @@
             <tr>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Avatar</th>
+                <th>Фото</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+                <th>Дата рождения</th>
                 <th>Изменить</th>
                 <th>Удалить</th>
             </tr>
@@ -27,6 +30,8 @@
                     <img th:src="@{/img/{filename}(filename=${user.filename})}"/>
                 </td>
                 <td th:unless="${user.filename}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.date_of_birth}"></td>
                 <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Изменить</a></td>
                 <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Удалить</a></td>
             </tr>
@@ -40,6 +45,7 @@
 <form method="post" action="filter">
     <input type="text" name="email" placeholder="email">
     <input type="text" name="name" placeholder="Имя">
+    <input type="text" name="phone" placeholder="Телефон">
     <button type="submit">Найти</button>
 </form>
 </body>

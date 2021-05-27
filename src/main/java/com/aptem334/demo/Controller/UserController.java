@@ -1,6 +1,7 @@
-package com.aptem334.demo;
+package com.aptem334.demo.Controller;
 
-import com.aptem334.demo.repos.UserRepository;
+import com.aptem334.demo.Repository.UserRepository;
+import com.aptem334.demo.Model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -106,13 +107,13 @@ public class UserController  {
         return "redirect:/user/all";
     }
 
-    @PostMapping(path="/all")
+    @GetMapping(path="/all")
     public @ResponseBody Iterable<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
     @PostMapping(path="/filter")
-    public @ResponseBody Iterable<Users> searchUsers(@RequestParam String email, @RequestParam String name ) {
-        return userRepository.findByEmailOrName(email, name);
+    public @ResponseBody Iterable<Users> searchUsers(@RequestParam String email, @RequestParam String name, @RequestParam String phone) {
+        return userRepository.findByEmailOrNameOrPhone(email, name, phone);
     }
 }

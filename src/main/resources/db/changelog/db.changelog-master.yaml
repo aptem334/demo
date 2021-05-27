@@ -155,3 +155,68 @@ databaseChangeLog:
                   type: DATE
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 7
+      author: aptem334@gmail.com
+      comment: "Add in admin user"
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: email
+                  value: "test@server.com"
+              - column:
+                  name: phone
+                  value: "12345678910"
+              - column:
+                  name: address
+                  value: "Deribasobskaya"
+              - column:
+                  name: date_of_birth
+                  value: "1998-12-25"
+  - changeSet:
+      id: 8
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: phone_id
+                  type: NUMBER(19)
+  - changeSet:
+      id: 9
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        - renameColumn:
+            tableName: users
+            newColumnName: owner_id
+            oldColumnName: phone_id
+  - changeSet:
+      id: 10
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: account
+                  type: VARCHAR2(255)
+  - changeSet:
+      id: 11
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        - dropColumn:
+            tableName: ACCOUNTS
+            columns:
+              - column:
+                  name: owner_id
+                  type: NUMBER(19)

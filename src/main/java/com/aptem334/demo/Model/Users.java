@@ -1,8 +1,11 @@
-package com.aptem334.demo;
+package com.aptem334.demo.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +23,54 @@ public class Users {
     private String email;
 
     public String filename;
+
+    @NotBlank(message = "Phone is mandatory")
+    public String phone;
+
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<Accounts> account = new ArrayList<>();
+
+    @NotBlank(message = "Address is mandatory")
+    private String address;
+
+    @NotBlank(message = "Date of birth is mandatory")
+    private String date_of_birth;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Accounts> getAccount() {
+        return account;
+    }
+
+    public void setAccount(List<Accounts> account) {
+        this.account = account;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
 
     public String getFilename() {
         return filename;
