@@ -5,26 +5,26 @@ databaseChangeLog:
       author: aptem334@gmail.com
       comment: "Start"
       changes:
-       - createTable:
-           tableName: users
-           columns:
-             - column:
-                 name: id
-                 type: BIGINT
-                 autoIncrement: true
-                 constraints:
-                   primaryKey: true
-                   nullable: false
-             - column:
-                 name: name
-                 type: varchar(50)
-                 constraints:
-                   nullable: false
-             - column:
-                 name: email
-                 type: varchar(50)
-                 constraints:
-                   unique: false
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    unique: false
   - changeSet:
       id: 2
       author: aptem334@gmail.com
@@ -123,12 +123,12 @@ databaseChangeLog:
             tableName: TRANSACTIONS
             columns:
               - column:
-                    name: ID
-                    type: NUMBER(19)
-                    autoIncrement: true
-                    constraints:
-                      primaryKey: true
-                      nullable: false
+                  name: ID
+                  type: NUMBER(19)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
               - column:
                   name: TRANSACTION_TYPE
                   type: VARCHAR2(255)
@@ -215,8 +215,31 @@ databaseChangeLog:
       comment: "add fk"
       changes:
         - dropColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: owner_id
+                  type: NUMBER(19)
+  - changeSet:
+      id: 12
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        - addColumn:
             tableName: ACCOUNTS
             columns:
               - column:
                   name: owner_id
                   type: NUMBER(19)
+  - changeSet:
+      id: 13
+      author: aptem334@gmail.com
+      comment: "add seq"
+      changes:
+        - createSequence:
+            incrementBy: 1
+            maxValue: 90000000
+            minValue: 1
+            sequenceName: ACCOUNT_SEQ
+            startValue: 1
+

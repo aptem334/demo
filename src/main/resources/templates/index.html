@@ -30,6 +30,7 @@
                     <img th:src="@{/img/{filename}(filename=${user.filename})}"/>
                 </td>
                 <td th:unless="${user.filename}"></td>
+                <td th:text="${user.phone}"></td>
                 <td th:text="${user.address}"></td>
                 <td th:text="${user.date_of_birth}"></td>
                 <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Изменить</a></td>

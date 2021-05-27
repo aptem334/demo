@@ -1,7 +1,12 @@
 package com.aptem334.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Date;
@@ -15,7 +20,7 @@ public class Accounts {
     @SequenceGenerator(name="SEQUENCE_ACCOUNTS", sequenceName="ACCOUNT_SEQ", allocationSize=1)
     private Integer account_number;
 
-    @NotEmpty
+    @DecimalMin(value = "0.00", message = "Amount is Empty")
     private double amount;
 
     private Date opening_date;
@@ -23,11 +28,13 @@ public class Accounts {
     @Future
     private Date validity_period;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="owner_id")
     private Users owner;
 
-    public Accounts() {}
+    public Accounts() {
+
+    }
 
     public Accounts(Integer account_number, double amount, Date opening_date, Date validity_period, Users owner) {
         this.account_number = account_number;
@@ -69,6 +76,7 @@ public class Accounts {
         this.validity_period = validity_period;
     }
 
+    @JsonProperty("owner_id")
     public Users getOwner() {
         return owner;
     }

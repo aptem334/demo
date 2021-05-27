@@ -1,5 +1,8 @@
 package com.aptem334.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -32,7 +35,8 @@ public class Users {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    List<Accounts> account = new ArrayList<>();
+    private List<Accounts> account = new ArrayList<>();
+
 
     @NotBlank(message = "Address is mandatory")
     private String address;
