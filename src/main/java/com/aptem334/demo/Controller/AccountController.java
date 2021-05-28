@@ -36,6 +36,11 @@ public class AccountController {
 //        return accountRepository.findById(id, pageable);
 //    }
 
+    @GetMapping("/user/{id}/accounts")
+    List<Accounts> getAccount(@PathVariable("id") Integer id) {
+        return accountRepository.findByOwner_id(id);
+    }
+
     @PostMapping("/user/{id}/accounts")
     public Accounts addAccount(@PathVariable("id") Integer id,
                                @Valid @RequestBody Accounts account) {
@@ -45,17 +50,34 @@ public class AccountController {
         }).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
 
+    @PutMapping("/user/{id}/accounts/{account_id}")
+    public Accounts updateAccount(@PathVariable("id") Integer id,
+                                  @PathVariable("account_id") Integer accountNumber,
+                                  @Valid @RequestBody Accounts accountRequest) {
+
+        if(!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("Invalid user Id:" + id);
+        }
+        return accountRepository.findById(accountNumber).map(account -> {
+            account.setAmount(accountRequest.getAmount());
+            return accountRepository.save(account);
+        }).orElseThrow(() -> new IllegalArgumentException("Invalid account Id:" + accountNumber));
+    }
+
+    @DeleteMapping("/user/{id}/accounts/{account_id}")
+    public ResponseEntity<?> deleteAccount(@PathVariable("id") Integer id,
+                                           @PathVariable("account_id") Integer accountNumber) {
+        return accountRepository.findByAccountNumberAndOwner_id(accountNumber, id).map(account -> {
+            accountRepository.delete(account);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new IllegalArgumentException("Comment not found with account id " + accountNumber + " and user id " + id));
+    }
+
     @GetMapping("/all")
     List<Accounts> all() {
         return accountRepository.findAll();
     }
 
-
-
-    @PostMapping(path="/owner")
-    public Iterable<Accounts> searchUsers(@JsonProperty("owner") Integer owner){
-        return accountRepository.findByOwner(owner);
-    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
