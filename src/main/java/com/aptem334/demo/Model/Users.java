@@ -95,9 +95,13 @@ public class Users {
     public Users() {
     }
 
-    public Users(String name, String email) {
+    public Users(String name, String email, String phone, List<Accounts> account, String address, String date_of_birth) {
         this.name = name;
         this.email = email;
+        this.phone = phone;
+        this.account = account;
+        this.address = address;
+        this.date_of_birth = date_of_birth;
     }
 
     public String getName() {

@@ -1,7 +1,9 @@
 package com.aptem334.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -23,12 +25,14 @@ public class Accounts {
     @DecimalMin(value = "0.00", message = "Amount is Empty")
     private double amount;
 
+    @CreatedDate
     private Date opening_date;
 
     @Future
     private Date validity_period;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="owner_id")
     private Users owner;
 
@@ -41,6 +45,15 @@ public class Accounts {
         this.amount = amount;
         this.opening_date = opening_date;
         this.validity_period = validity_period;
+        this.owner = owner;
+    }
+
+    public Users getOwner() {
+        return owner;
+    }
+
+
+    public void setOwner(Users owner) {
         this.owner = owner;
     }
 
@@ -76,12 +89,4 @@ public class Accounts {
         this.validity_period = validity_period;
     }
 
-    @JsonProperty("owner_id")
-    public Users getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Users owner) {
-        this.owner = owner;
-    }
 }

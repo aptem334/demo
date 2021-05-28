@@ -242,4 +242,16 @@ databaseChangeLog:
             minValue: 1
             sequenceName: ACCOUNT_SEQ
             startValue: 1
-
+  - changeSet:
+      id: 14
+      author: aptem334@gmail.com
+      comment: "add fk"
+      changes:
+        -  addForeignKeyConstraint:
+             baseColumnNames:  owner_id
+             baseTableName:  accounts
+             constraintName:  fk_account_user
+             onDelete:  CASCADE
+             onUpdate:  RESTRICT
+             referencedColumnNames:  id
+             referencedTableName:  users
